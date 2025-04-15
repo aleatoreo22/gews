@@ -17,6 +17,10 @@
       .then((result) => (newsArr = result))
       .finally(() => (loadingNews = false));
   }
+
+  function changeVisibilityNews(newsIndex: number) {
+    newsArr[newsIndex].Visible = !newsArr[newsIndex].Visible;
+  }
 </script>
 
 <main>
@@ -24,34 +28,37 @@
     {#if newsArr.length > 0}
       {#each newsArr as newsSite}
         <button
+          on:click={() => changeVisibilityNews(newsArr.indexOf(newsSite))}
           class="bg-transparent hover:bg-neutral-950 w-full h-full border-b border-l border-r border-gray-500 rounded-b-lg pl-2 pb-4 mb-3 pt-2 active:bg-neutral-800"
         >
           <div class="border-white text-white flex text-left text-6xl">
-            {newsSite.Site}
+            {newsSite.SiteName}
           </div>
         </button>
         <div>
           <div class="grid grid-cols-[26vw_40vw]">
-            {#each newsSite.News as news}
-              <div class="flex-row">
-                <img
-                  src={news.ImageLink}
-                  alt=""
-                  class="object-cover h-60 w-96"
-                />
-              </div>
-              <div class="text-left">
-                <div class="text-white text-3xl">
-                  {news.Headline}
+            {#if newsSite.Visible}
+              {#each newsSite.News as news}
+                <div class="flex-row">
+                  <img
+                    src={news.ImageLink}
+                    alt=""
+                    class="object-cover h-60 w-96"
+                  />
                 </div>
-                <div class="text-gray-400 pt-2 text-2xl">
-                  {news.SubHeadling}
+                <div class="text-left">
+                  <div class="text-white text-3xl">
+                    {news.Headline}
+                  </div>
+                  <div class="text-gray-400 pt-2 text-2xl">
+                    {news.SubHeadling}
+                  </div>
                 </div>
-              </div>
-              <div
-                class="col-span-2 border-b border-gray-500 ml-4 mr-4 pt-2 mb-2"
-              ></div>
-            {/each}
+                <div
+                  class="col-span-2 border-b border-gray-500 ml-4 mr-4 pt-2 mb-2"
+                ></div>
+              {/each}
+            {/if}
           </div>
         </div>
       {/each}

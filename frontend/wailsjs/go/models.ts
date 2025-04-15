@@ -19,7 +19,8 @@ export namespace model {
 	    }
 	}
 	export class NewsSite {
-	    Site: string;
+	    SiteName: string;
+	    Site: number;
 	    News: News[];
 	    Visible: boolean;
 	
@@ -29,6 +30,7 @@ export namespace model {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.SiteName = source["SiteName"];
 	        this.Site = source["Site"];
 	        this.News = this.convertValues(source["News"], News);
 	        this.Visible = source["Visible"];

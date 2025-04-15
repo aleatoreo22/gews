@@ -1,6 +1,9 @@
 package model
 
-import "fmt"
+import (
+	"fmt"
+	site "gews/model/enum"
+)
 
 type News struct {
 	Link        string
@@ -10,8 +13,9 @@ type News struct {
 }
 
 type NewsSite struct {
-	Site string
-	News []News
+	SiteName string
+	site.Site
+	News    []News
 	Visible bool
 }
 

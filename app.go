@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"gews/model"
+	site "gews/model/enum"
 	"gews/service/tupiService"
 )
 
@@ -35,12 +36,14 @@ func (a *App) Teste() model.News {
 
 func (a *App) GetNews() []model.NewsSite {
 	var newsSite []model.NewsSite
-
 	news, err := a.Tupi.News.Get()
 	if err != nil {
 		return nil
 	}
-	newsSite = append(newsSite, model.NewsSite{Site: "Tupi", News: news})
-
+	newsSite = append(newsSite, model.NewsSite{
+		SiteName: "Tupi",
+		Site: site.Tupi,
+		News:            news,
+		Visible:         true})
 	return newsSite
 }
